@@ -1,19 +1,16 @@
 package application;
 
-import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 import DAO.ProdutoDAO;
-import database.DB;
-import database.DbException;
-import modal.Produto;
+import model.entities.Categoria;
+import model.entities.Produto;
 
 public class Main {
 	
 	static ProdutoDAO produtoDAO = new ProdutoDAO();
 
-	/* Transações
+	/* Transações 
 	 setAutoCommit(false) = cada operação não está confirmada, só finalizar até eu confirmar todas operações
 	 commit() = confirmar a transação
 	 rollback() = desfazer o que foi feito até então
@@ -24,7 +21,10 @@ public class Main {
 		//cadastrarProdutosBanco();
 		//editarDadosProdutosBanco();
 		//excluirDadosProdutosBanco();
-		testeCommit();
+		//testeCommit();
+		Categoria categoria = new Categoria(1, "Manga");
+		Produto produto = new Produto(1, "Naruto", 34.90, 5, categoria);
+		System.out.println(produto);
 	}
 
 	public static void listarProdutosRecuperadosBanco() { //ok

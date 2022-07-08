@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import database.DB;
 import database.DbException;
-import modal.Produto;
+import model.entities.Produto;
 
 public class ProdutoDAO {
 	
