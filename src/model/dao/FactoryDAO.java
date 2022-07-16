@@ -1,4 +1,4 @@
-package database;
+package model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,18 +9,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class DB {
+import database.DbException;
+import model.dao.impl.ProdutoDaoJDBC;
+
+public class FactoryDAO {
 	
 	private static Connection conn = null;
 	
 	public static Connection getConnection() {
 		if(conn == null) {
 			try {
-				Properties props = loadProperties(); //retorna o objeto que contem os dados do acesso ao banco, pela função e arquivo que foi criado manualmente
-				String url = props.getProperty("dburl"); //pega exatamente o valor da url que foi dado no arquivo
+				Properties props = loadProperties();
+				String url = props.getProperty("dburl");
 				conn = DriverManager.getConnection(url, props);
-			} catch (SQLException e) {
-				throw new DbException(e.getMessage());
+			} catch(SQLException e) {
+				
 			}
 		}
 		return conn;
@@ -31,9 +34,13 @@ public class DB {
 			Properties props = new Properties();
 			props.load(fs);
 			return props;
-		} catch(IOException e) {
+		} catch (IOException e) {
 			throw new DbException(e.getMessage());
 		}
+	}
+
+	public static ProdutoDAO criarProdutoDAO() {
+		return new ProdutoDaoJDBC();
 	}
 	
 	public static void closeConnection() {

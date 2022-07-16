@@ -1,15 +1,12 @@
 package application;
 
-import javax.swing.JOptionPane;
-
-import DAO.ProdutoDAO;
+import model.dao.FactoryDAO;
+import model.dao.ProdutoDAO;
 import model.entities.Categoria;
 import model.entities.Produto;
 
 public class Main {
 	
-	static ProdutoDAO produtoDAO = new ProdutoDAO();
-
 	/* Transações 
 	 setAutoCommit(false) = cada operação não está confirmada, só finalizar até eu confirmar todas operações
 	 commit() = confirmar a transação
@@ -24,10 +21,12 @@ public class Main {
 		//testeCommit();
 		Categoria categoria = new Categoria(1, "Manga");
 		Produto produto = new Produto(1, "Naruto", 34.90, 5, categoria);
+		
+		ProdutoDAO produtoDAO = FactoryDAO.criarProdutoDAO();
 		System.out.println(produto);
 	}
 
-	public static void listarProdutosRecuperadosBanco() { //ok
+	/*public static void listarProdutosRecuperadosBanco() { //ok
 		String lista = "";
 		for(Produto p : produtoDAO.consultarTodosDadosProdutos()) {
 			lista += p.toString();
@@ -49,5 +48,5 @@ public class Main {
 	
 	private static void testeCommit() {
 		produtoDAO.testeCommit();
-	}
+	}*/
 }
